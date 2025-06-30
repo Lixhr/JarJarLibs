@@ -8,18 +8,9 @@ CFLAGS = -Wall -Wextra -Werror -I./includes -I$(ARES_INCLUDES)
 
 SRCS_LIST = main \
 			init/get_args \
-			JarFile/JarFile JarFile/unJar \
-			utils/signature utils/bitwise utils/utils \
-			JarJarLibs/JarJarLibs JarJarLibs/JniOwner
-
-SRCS_LIST+= ares_byte_code/attribute_info \
-			ares_byte_code/class_file \
-			ares_byte_code/class_reader \
-			ares_byte_code/class_writer \
-			ares_byte_code/constant_info \
-			ares_byte_code/field_info \
-			ares_byte_code/method_info \
-			ares_byte_code/vm_check
+			JarJarLibs/JarJarLibs \
+			JavaClass/JavaClass \
+			utils/utils utils/GNL/GNL utils/GNL/get_next_line utils/GNL/get_next_line_utils
 
 SRC_DIR = ./srcs
 SRCS = $(addprefix $(SRC_DIR)/,  $(addsuffix .cpp, $(SRCS_LIST)))

@@ -1,2 +1,4 @@
-# 1) unzip
-# 2) Find classes where .so are imported. (loadLibrary)
+For each class, identify and list methods.
+On each methods, list function calls
+
+TODO: determine instructions by checking the spaces count

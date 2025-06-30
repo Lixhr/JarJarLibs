@@ -1,11 +1,13 @@
 #pragma once
 #include "jjl.hpp"
-#include "JniOwner.hpp"
+#include "JavaClass.hpp"
 
 class JarJarLibs
 {
     private:
-        vector<JarFile> jar_files;
+        const string &file;
+        void getJavaClass(void);
+        std::vector<JavaClass> classes;
     public:
         JarJarLibs(const string &file);
         ~JarJarLibs();
