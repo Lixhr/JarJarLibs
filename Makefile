@@ -5,12 +5,22 @@ INCLUDES=./includes
 ARES_INCLUDES=$(INCLUDES)/ares
 
 CFLAGS = -Wall -Wextra -Werror -I./includes -I$(ARES_INCLUDES)
-
+LDFLAGS = -lzip
+ 
 SRCS_LIST = main \
 			init/get_args \
-			JarJarLibs/JarJarLibs \
-			JavaClass/JavaClass \
-			utils/utils utils/GNL/GNL utils/GNL/get_next_line utils/GNL/get_next_line_utils
+			JarJarLibs/JarJarLibs JarJarLibs/ByteCode \
+
+
+SRCS_LIST +=ares/attribute_info\
+			ares/class_file\
+			ares/class_reader\
+			ares/class_writer\
+			ares/constant_info\
+			ares/method_info\
+			ares/field_info\
+			ares/utils\
+			ares/vm_check
 
 SRC_DIR = ./srcs
 SRCS = $(addprefix $(SRC_DIR)/,  $(addsuffix .cpp, $(SRCS_LIST)))
@@ -23,11 +33,11 @@ all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS)  -c $< -o $@
 
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS)  -o $(NAME) $(OBJS) $(LDFLAGS)
 
 
 clean:

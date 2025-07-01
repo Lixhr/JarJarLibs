@@ -1,13 +1,14 @@
 #pragma once
 #include "jjl.hpp"
-#include "JavaClass.hpp"
+#include "ares.h"
+#include <map>
 
 class JarJarLibs
 {
     private:
         const string &file;
-        void getJavaClass(void);
-        std::vector<JavaClass> classes;
+        std::vector<ares::JARFile> jars;
+        std::map<std::string, std::shared_ptr<ares::ClassFile>> classes;
     public:
         JarJarLibs(const string &file);
         ~JarJarLibs();

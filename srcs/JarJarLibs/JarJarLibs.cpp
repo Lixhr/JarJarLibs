@@ -1,32 +1,21 @@
 #include "JarJarLibs.hpp"
-#include "GNL.hpp"
+#include "ares.h"
 
 JarJarLibs::JarJarLibs(const string &file) : file(file) {
-    this->getJavaClass();
+    this->jars.push_back(ares::JARFile::read_file(file));
+
+    for (auto &jar : this->jars) {
+        for (auto &class_pair : jar.classes) {
+            const auto &class_name = class_pair.first;
+            auto &class_file = class_pair.second;
+
+            std::cout << "===============CLASS: " << class_name << std::endl;
+            class_file.setTreeData();
+            // classes[class_name] = std::make_shared<ares::ClassFile>(class_file);
+        }
+    }
 }
+
 
 JarJarLibs::~JarJarLibs() {
-}
-
-void JarJarLibs::getJavaClass(void) {
-    int fd = do_sys_command_stream("jar tf " + this->file);
-
-    GNL reader(fd);
-
-    char *c_line = NULL; 
-
-    while ((c_line = reader.get_next_line()) != NULL) {
-        std::string line(c_line);
-        size_t extension;
-        if ((extension = line.find(".class")) != string::npos) {
-            line.erase(extension);
-            size_t path;
-            while ((path = line.find("/")) != string::npos) {
-                line.replace(path, 1, ".");
-            }
-            std::cout << line <<endl;
-            this->classes.push_back(JavaClass(line, this->file));
-        }
-        free(c_line);
-    }
 }
