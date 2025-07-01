@@ -67,10 +67,9 @@ void ByteCode::findFunctionCalls(const ares::MethodInfo &method, ares::ClassFile
                 printf("=============================OP : %x\n", opcode);
 
                 if (opcode >= 0xb6 && opcode <= 0xba) {
-                    uint16_t index = ptr[i + 1] << 8 | ptr[i + 2];
+                    uint16_t index = (ptr[i + 1] << 8) | ptr[i + 2];
                     // const auto cp = class_file.constant_pool[index -1];
-                    std::cout << "TODO!!" << std::endl;
-                    // std::cout << cp.info.utf8_info.bytes ;
+                    std::cout << "TODO!! The index represents a reference to a method, which stores its name." << std::endl;
                     printf("INVOKE %d\n", index);
                 }
                 i += len;
