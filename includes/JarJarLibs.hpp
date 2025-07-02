@@ -2,6 +2,7 @@
 #include "jjl.hpp"
 #include "ares.h"
 #include <map>
+#include <algorithm>
 
 class JarJarLibs
 {

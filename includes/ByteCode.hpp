@@ -2,6 +2,8 @@
 #include "ares.h"
 #include <iostream>
 #include "jvm_opcodes.h"
+#include <algorithm>
+#include <cstring>
 
 class ByteCode
 {

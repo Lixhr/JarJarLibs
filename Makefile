@@ -4,7 +4,7 @@ CC = c++
 INCLUDES=./includes
 ARES_INCLUDES=$(INCLUDES)/ares
 
-CFLAGS = -Wall -Wextra -Werror -I./includes -I$(ARES_INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -I./includes -I$(ARES_INCLUDES) -g
 LDFLAGS = -lzip
  
 SRCS_LIST = main \

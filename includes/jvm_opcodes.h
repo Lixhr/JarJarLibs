@@ -1,8 +1,6 @@
 #ifndef JVM_OPCODES_H
 #define JVM_OPCODES_H
 
-// Longueur de chaque opcode Java bytecode.
-// -1 signifie que la longueur est variable ou dépend d'une analyse spéciale.
 static const int opcode_length[256] = {
     /* 0x00 */ 1,  // nop
     /* 0x01 */ 1,  // aconst_null
@@ -209,4 +207,11 @@ static const int opcode_length[256] = {
 
 };
 
+#define INVOKEVIRTUAL 0xb6
+#define INVOKESPECIAL 0xb7
+#define INVOKESTATIC 0xb8
+#define INVOKEINTERFACE 0xb9
+#define INVOKEDYNAMIC 0xba
+
 #endif // JVM_OPCODES_H
+
