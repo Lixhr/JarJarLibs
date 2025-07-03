@@ -101,11 +101,11 @@ void ByteCode::findFunctionCalls(const ares::MethodInfo &method, ares::ClassFile
                         ares::ConstantInfo &cp_info = const_pool.info;
 
                         std::string called_class = getCalledClass(cp_info, class_file);
-                        std::replace(called_class.begin(), called_class.end(), '/', '.');
 
                         if (isMethodInteresting(called_class)) {
-                            called_class += "." + getCalledMethod(cp_info, class_file);
-                            class_file.pushFunctionCall(called_class);
+                            std::replace(called_class.begin(), called_class.end(), '/', '.');
+                            class_file.processed_methods.back()
+                            .pushFunctionCall(called_class, getCalledMethod(cp_info, class_file));
                         }
                     }
                 }

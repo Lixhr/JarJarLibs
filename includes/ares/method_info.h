@@ -6,10 +6,10 @@
 #include <memory>
 #include <vector>
 #include <list>
+#include "attribute_info.h"
 
 namespace ares {
 
-struct AttributeInfo;
 
 class MethodInfo {
 public:

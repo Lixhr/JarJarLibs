@@ -6,6 +6,9 @@
 #include <memory>
 #include <vector>
 #include <list>
+#include <set>
+#include <string>
+#include <ProcessedMethod.hpp>
 
 namespace ares {
 
@@ -80,10 +83,12 @@ public:
     std::vector <AttributeInfo> attributes{};
     std::vector <std::string> methods_strings;
     std::vector <std::string> native_methods;
-    std::vector <std::string> function_calls;
 
+    std::vector<ProcessedMethod> processed_methods;
+    
     void setTreeData(void);
-    void pushFunctionCall(std::string func_name);
+    void pushFunctionCall(std::string func_name, const ares::MethodInfo &method);
+    void pushNewMethod(std::string func_name);
     const std::string getConstantPoolString(size_t index);
 private:
     void addMethodsStrings(const ares::MethodInfo &method);
