@@ -5,7 +5,7 @@
 #include <algorithm>
 #include "GraphViz.hpp"
 
-#define MAX_DEPTH 10
+#define MAX_DEPTH 50
 
 class JarJarLibs
 {
