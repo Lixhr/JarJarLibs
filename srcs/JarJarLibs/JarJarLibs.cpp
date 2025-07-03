@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <set>
 #include <utility>
+#include "GraphViz.hpp"
 
 JarJarLibs::JarJarLibs(const string &starting_path) : file(starting_path) {
     using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
@@ -14,17 +15,16 @@ JarJarLibs::JarJarLibs(const string &starting_path) : file(starting_path) {
             for (auto &class_pair : jar.classes) {
                 auto &class_file = class_pair.second;
                 class_file.setTreeData();
-                classes[class_pair.first] = std::make_shared<ares::ClassFile>(class_file);
             }
         }
         catch (const std::exception &e) {
-            std::cout << e.what() << std::endl;
+            std::cerr << e.what() << std::endl;
         }
     }
     this->processNativeMethods();
+
+    this->dot.test();
 }
-
-
 
 void JarJarLibs::findFunctionCaller(const std::string &class_name, const std::string &func, size_t depth,
                                     std::set<std::pair<std::string, std::string>> &visited) {
@@ -42,8 +42,13 @@ void JarJarLibs::findFunctionCaller(const std::string &class_name, const std::st
                 }
                 for (auto &called_func : method.called_functions) {
                     if (called_func.name == func && called_func.class_name == class_name) {
-                        std::cout << "\"" << class_pair.first << "." << method.name << "\" -> \""
-                                  << called_func.class_name << "." << called_func.name << "\"" << std::endl;
+                        this->dot.addRelation({
+                                called_func.class_name,
+                                called_func.name,
+                                class_pair.first,
+                                method.name,
+                                depth == MAX_DEPTH
+                        });
                         findFunctionCaller(class_pair.first, method.name, depth - 1, visited);
                     }
                 }
@@ -59,7 +64,7 @@ void JarJarLibs::processNativeMethods() {
         for (auto &class_pair : jar.classes) {
             for (auto &method : class_pair.second.processed_methods) {
                 if (method.is_native) {
-                    findFunctionCaller(class_pair.first, method.name, 4, visited);
+                    findFunctionCaller(class_pair.first, method.name, MAX_DEPTH, visited);
                 }
             }
         }

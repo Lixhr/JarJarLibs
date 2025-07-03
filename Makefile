@@ -10,6 +10,7 @@ LDFLAGS = -lzip
 SRCS_LIST = main \
 			init/get_args \
 			JarJarLibs/JarJarLibs JarJarLibs/ByteCode JarJarLibs/ProcessedMethod \
+			GraphViz/GraphViz
 
 
 SRCS_LIST +=ares/attribute_info\
