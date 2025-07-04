@@ -23,7 +23,7 @@ class GraphViz {
     
         ~GraphViz();
         GraphViz();
-        void test();
+        void doDotGraph(const std::string &out_file);
 
     private:
         std::set<RelationKey> relations;

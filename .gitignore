@@ -2,3 +2,8 @@
 tmp/
 objs/
 *.pdf
+.gdb_history
+jjl
+*.dot
+examples/
+.vscode/

@@ -16,13 +16,22 @@ void GraphViz::addRelation(RelationKey key) {
     relations.insert(key);
 }
 
-void GraphViz::test() {
-    std::ofstream ofs("test.dot", std::ofstream::out);
+void GraphViz::doDotGraph(const std::string &out_file) {
+    std::ostream* out_stream = &std::cout;
+    std::ofstream file_stream;
 
-    ofs << "digraph g {\n";
-    ofs << "ranksep=2.5;\n";
-    ofs << "node [shape=box];\n";
-    ofs << "rankdir=TB;\n";
+
+    if (!out_file.empty()) {
+        file_stream.open(out_file);
+        if (!file_stream.is_open())
+            throw (std::runtime_error("Failed to open " + out_file));
+        out_stream = &file_stream;
+    }
+
+    *out_stream << "digraph g {\n";
+    *out_stream << "ranksep=2.5;\n";
+    *out_stream << "node [shape=box];\n";
+    *out_stream << "rankdir=TB;\n";
 
     struct NodeInfo {
         bool is_native = false;
@@ -44,23 +53,23 @@ void GraphViz::test() {
         nodes[callee_node];
     }
 
-    ofs << "    subgraph cluster_native {\n";
-    ofs << "        label=\"Target Methods\";\n";
-    ofs << "        node [style=filled,color=lightblue];\n";
-    ofs << "        style=filled;\n";
-    ofs << "        color=lightgrey;\n";
-    ofs << "        rank=sink;\n";
+    *out_stream << "    subgraph cluster_native {\n";
+    *out_stream << "        label=\"Target Methods\";\n";
+    *out_stream << "        node [style=filled,color=lightblue];\n";
+    *out_stream << "        style=filled;\n";
+    *out_stream << "        color=lightgrey;\n";
+    *out_stream << "        rank=sink;\n";
 
     for (auto &[node_name, info] : nodes) {
         if (info.is_native) {
-            ofs << "        \"" << node_name << "\";\n";
+            *out_stream << "        \"" << node_name << "\";\n";
         }
     }
-    ofs << "    }\n";
+    *out_stream << "    }\n";
 
     for (auto &[node_name, info] : nodes) {
         if (!info.is_native) {
-            ofs << "\"" << node_name << "\";\n";
+            *out_stream << "\"" << node_name << "\";\n";
         }
     }
 
@@ -73,30 +82,9 @@ void GraphViz::test() {
         std::string caller_node = rel.caller_class.substr(caller_index) + "." + rel.caller_func;
         std::string callee_node = rel.callee_class.substr(callee_index) + "." + rel.callee_func;
 
-        ofs << "\"" << caller_node << "\" -> \"" << callee_node << "\";\n";
+        *out_stream << "\"" << caller_node << "\" -> \"" << callee_node << "\";\n";
     }
 
-    ofs << "}\n";
-    ofs.close();
+    *out_stream << "}\n";
+    
 }
-
-
-// digraph g {
-//     ranksep=2.5;
-//     node [shape=box];
-  
-//     subgraph cluster_native {
-//       label="Native Methods";
-//       style=filled;
-//       color=lightgrey;
-//       node [style=filled,color=lightblue];
-  
-//       "NativeClass1.funcA";
-//       "NativeClass2.funcB";
-//     }
-  
-//     "NonNativeClass1.funcX";
-//     "NonNativeClass2.funcY";
-  
-//     "NonNativeClass1.funcX" -> "NativeClass1.funcA";
-//   }

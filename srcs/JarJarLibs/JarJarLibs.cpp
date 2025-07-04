@@ -36,7 +36,7 @@ JarJarLibs::JarJarLibs(const ArgsParser &args) : args(args) {
     }
 
     this->processNativeMethods();
-    this->dot.test();
+    this->dot.doDotGraph(args.out_file);
 }
 
 bool JarJarLibs::shouldBeProcessed(const std::string &class_name, const std::string &method_name, bool default_) {
@@ -69,7 +69,8 @@ void JarJarLibs::findFunctionCaller(const std::string &class_name, const std::st
                 }
                 for (auto &called_func : method.called_functions) {
                     if (called_func.name == func && called_func.class_name == class_name ){
-                        if (shouldBeProcessed(class_pair.first, method.name, true)) {
+                        // if (shouldBeProcessed(class_pair.first, method.name, false) || (int)depth == args.recursion_depth) {
+                        if (!args.exclude_regex.isEnabled() || !args.exclude_regex.matches(class_pair.first, method.name) ) {
                             this->dot.addRelation({
                                     called_func.class_name,
                                     called_func.name,
