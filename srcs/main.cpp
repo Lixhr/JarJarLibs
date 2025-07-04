@@ -1,12 +1,13 @@
 #include "jjl.hpp"
 #include "JarJarLibs.hpp"
+#include "ArgsParser.hpp"
+
 
 
 int	main(int argc, char **argv) {
 	try {
-		string file = get_args(argc, argv);
-		std::cout << "TODO PARSING ARGS\n";
-		JarJarLibs jjl(file);
+		ArgsParser args(argc, argv);
+		JarJarLibs jjl(args);
 	}
 	catch (const exception &e) {
 		cerr << "Error: " << e.what() << endl;

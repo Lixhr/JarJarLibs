@@ -4,11 +4,11 @@ CC = c++
 INCLUDES=./includes
 ARES_INCLUDES=$(INCLUDES)/ares
 
-CFLAGS = -Wall -Wextra -Werror -I./includes -I$(ARES_INCLUDES) -g
+CFLAGS = -Wall -Wextra -Werror -I./includes --std=c++17 -I$(ARES_INCLUDES) -g
 LDFLAGS = -lzip
  
 SRCS_LIST = main \
-			init/get_args \
+			init/get_args init/ArgsParser\
 			JarJarLibs/JarJarLibs JarJarLibs/ByteCode JarJarLibs/ProcessedMethod \
 			GraphViz/GraphViz
 

@@ -22,6 +22,7 @@ void GraphViz::test() {
     ofs << "digraph g {\n";
     ofs << "ranksep=2.5;\n";
     ofs << "node [shape=box];\n";
+    ofs << "rankdir=TB;\n";
 
     struct NodeInfo {
         bool is_native = false;
@@ -44,10 +45,11 @@ void GraphViz::test() {
     }
 
     ofs << "    subgraph cluster_native {\n";
-    ofs << "        label=\"Native Methods\";\n";
+    ofs << "        label=\"Target Methods\";\n";
     ofs << "        node [style=filled,color=lightblue];\n";
     ofs << "        style=filled;\n";
     ofs << "        color=lightgrey;\n";
+    ofs << "        rank=sink;\n";
 
     for (auto &[node_name, info] : nodes) {
         if (info.is_native) {
