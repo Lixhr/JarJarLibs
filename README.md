@@ -14,6 +14,7 @@ JarJarLibs helps
 
 - Output a call graph in Graphviz DOT format for further analysis or visualization
 
+<br>
 
 ### Usage:
 
@@ -38,15 +39,20 @@ JarJarLibs helps
         -d, --depth <value>     maximum depth of function call recursion
         -o, --output <file>     output .dot file
 ```
+<br>
 
 ```bash
 ./jjl -j -o outfile.dot javaArchive.jar | dot -Tpdf -o result.pdf
 ```
+<br>
+
 ![image](./.img/dot.png)
+<br>
 
 ### Credits:
 
 This project is based on [Excse's ares_byte_code](https://github.com/Excse/ares_byte_code/) java class parser.
+<br>
 
 ### Licence:
 
