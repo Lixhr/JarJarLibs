@@ -42,7 +42,7 @@ JarJarLibs helps
 ```bash
 ./jjl -j -o outfile.dot javaArchive.jar | dot -Tpdf -o result.pdf
 ```
-
+![image](./.img/dot.png)
 
 ### Credits:
 
